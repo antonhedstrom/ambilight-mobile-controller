@@ -25,7 +25,9 @@ export default class App extends React.Component {
         return movie;
       });
       this.setState({lights: movies});
-    })
+    }).catch(err => {
+      console.log(err);
+    });
   }
   render() {
     console.log("this.state.lights", this.state.lights);
