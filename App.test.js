@@ -1,5 +1,6 @@
 import React from 'react';
 import App from './App';
+import LightList from './components/light-list';
 
 import renderer from 'react-test-renderer';
 
