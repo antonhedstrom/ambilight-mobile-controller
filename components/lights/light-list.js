@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet, FlatList, Text, View } from 'react-native';
 
-import LightListItem from './light-list-item';
+import LightListItemSimple from './light-list-item-simple';
+import LightListItemAmbilight from './light-list-item-ambilight';
+import LightListItemBrightness from './light-list-item-brightness';
 import LightListSeparator from './light-list-separator';
 
 export default class LightList extends React.Component {
@@ -12,10 +14,27 @@ export default class LightList extends React.Component {
     };
   }
   renderListItem = ({item}) => {
-    return <LightListItem
-      item={item}
-      navigation={this.props.navigation}
-    />;
+    let itemComponent;
+    switch (this.props.mode) {
+      case 'simple':
+        itemComponent = (<LightListItemSimple
+          item={item}
+          navigation={this.props.navigation}
+        />);
+        break;
+      case 'ambilight':
+        itemComponent = (<LightListItemAmbilight
+          item={item}
+          navigation={this.props.navigation}
+        />);
+        break;
+      default:
+        itemComponent = (<LightListItemBrightness
+          item={item}
+          navigation={this.props.navigation}
+        />);
+    }
+    return itemComponent;
   }
   separator() {
     return <LightListSeparator />;

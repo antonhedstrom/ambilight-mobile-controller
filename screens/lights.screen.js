@@ -36,7 +36,7 @@ export default class LightsScreen extends React.Component {
       this.setState({ lights });
       return lights;
     }).catch(err => {
-      console.error(err);
+      console.log(err);
     });
   }
   render() {
@@ -52,6 +52,7 @@ export default class LightsScreen extends React.Component {
             lights={this.state.lights}
             navigation={this.props.navigation}
             onRefresh={this.fetchData}
+            mode='ambilight'
           />
         </View>
       </View>

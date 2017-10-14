@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { debounce } from 'underscore';
 
-import { POST } from '../../helpers/api-caller';
+import { PUT } from '../../helpers/api-caller';
 
 export default class LightDetails extends React.Component {
   constructor(props) {
@@ -49,7 +49,7 @@ export default class LightDetails extends React.Component {
   }
   updateLight(data) {
     const lightId = this.getLightId();
-    POST('/lights/' + lightId, data).then(light => {
+    PUT('/lights/' + lightId, data).then(light => {
       Vibration.vibrate(200);
     });
   }
@@ -61,17 +61,21 @@ export default class LightDetails extends React.Component {
     const light = attributes.attributes;
     return (
       <View style={styles.outerLayout}>
-        <Text style={styles.lightName}>{light.name}</Text>
-        <Text style={styles.lightModel}>{light.type}</Text>
+        <View style={styles.topSection}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.lightName}>{light.name}</Text>
+            <Text style={styles.lightModel}>{light.type}</Text>
+          </View>
 
-        <View style={styles.actions}>
-          <Switch value={this.state.on}
-            onValueChange={this.toggleActivation.bind(this)}
-            disabled={!state.attributes.reachable}
-            />
+          <View style={styles.onoff}>
+            <Switch value={this.state.on}
+              onValueChange={this.toggleActivation.bind(this)}
+              disabled={!state.attributes.reachable}
+              />
+          </View>
         </View>
 
-        <View style={styles.slider}>
+        <View style={styles.sliderContainer}>
           <Slider value={this.state.bri}
             maximumValue={255}
             step={1}
@@ -93,35 +97,32 @@ LightDetails.defaultProps = {
 
 const styles = StyleSheet.create({
   outerLayout: {
-    flexDirection: 'column',
-    top: 40
+    top: 20
   },
-  innerLayout: {
-    flex: 1,
+  topSection: {
     flexDirection: 'row',
-    bottom: 3
+    alignItems: 'center'
   },
-  title: {
+  sliderContainer: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    top: 10,
+  },
+  titleContainer: {
     flex: 1,
     paddingLeft: 15,
     paddingTop: 5
   },
+  onoff: {
+    flex: 0,
+    paddingRight: 10,
+    paddingLeft: 20
+  },
   lightName: {
-    fontSize: 18
+    fontSize: 30
   },
   lightModel: {
     fontSize: 13,
     color: '#999999'
-  },
-  actions: {
-    flex: 0,
-    bottom: 3,
-    top: 2,
-    paddingRight: 10,
-    paddingLeft: 20
-  },
-  slider: {
-    paddingLeft: 5,
-    paddingRight: 5,
   }
 });

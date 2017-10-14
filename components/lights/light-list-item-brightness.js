@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { debounce } from 'underscore';
 
-import { POST } from '../../helpers/api-caller';
+import { PUT } from '../../helpers/api-caller';
 
 export default class LightListItem extends React.Component {
   constructor(props) {
@@ -30,19 +30,17 @@ export default class LightListItem extends React.Component {
     }
   }
   toggleActivation(value) {
-    data = {
+    const data = {
       on: value
-    }
+    };
     this.updateLight(data);
-    this.setState({
-      on: value
-    });
+    this.setState(data);
   }
   setBrightness(value) {
     value = parseInt(value, 10);
-    data = {
+    const data = {
       brightness: value
-    }
+    };
     this.updateLight(data);
     this.setState({
       bri: value
@@ -50,7 +48,7 @@ export default class LightListItem extends React.Component {
   }
   updateLight(data) {
     const lightId = this.getLightId();
-    POST('/lights/' + lightId, data).then(light => {
+    PUT('/lights/' + lightId, data).then(light => {
       Vibration.vibrate(200);
     });
   }
@@ -128,6 +126,6 @@ const styles = StyleSheet.create({
   },
   slider: {
     paddingLeft: 5,
-    paddingRight: 5,
+    paddingRight: 5
   }
 });
