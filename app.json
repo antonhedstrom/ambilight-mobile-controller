@@ -1,6 +1,7 @@
 {
   "expo": {
     "sdkVersion": "21.0.0",
-    "name": "Ambilight Hue Controller"
+    "name": "Ambilight Hue Controller",
+    "icon": "./icon.png"
   }
 }
